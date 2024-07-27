@@ -14,9 +14,8 @@ import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
 
 const validationSchema = Yup.object().shape({
-    userName: Yup.string().required('Please enter your user name'),
+    email: Yup.string().required('Please enter your user name'),
     password: Yup.string().required('Please enter your password'),
-    rememberMe: Yup.bool(),
 })
 
 const SignInForm = (props) => {
@@ -32,11 +31,10 @@ const SignInForm = (props) => {
     const { signIn } = useAuth()
 
     const onSignIn = async (values, setSubmitting) => {
-        const { userName, password } = values
+        const { email, password } = values
         setSubmitting(true)
 
-        const result = await signIn({ userName, password })
-
+        const result = await signIn({ email, password })
         if (result.status === 'failed') {
             setMessage(result.message)
         }
@@ -53,10 +51,14 @@ const SignInForm = (props) => {
             )}
             <Formik
                 // Remove this initial value
+                // initialValues={{
+                //     email: 'admin',
+                //     password: '123Qwe',
+                //     rememberMe: true,
+                // }}
                 initialValues={{
-                    userName: 'admin',
-                    password: '123Qwe',
-                    rememberMe: true,
+                    email: '',
+                    password: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -72,13 +74,13 @@ const SignInForm = (props) => {
                         <FormContainer>
                             <FormItem
                                 label="User Name"
-                                invalid={errors.userName && touched.userName}
-                                errorMessage={errors.userName}
+                                invalid={errors.email && touched.email}
+                                errorMessage={errors.email}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="userName"
+                                    name="email"
                                     placeholder="User Name"
                                     component={Input}
                                 />

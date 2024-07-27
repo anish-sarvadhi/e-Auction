@@ -6,6 +6,8 @@ import useAuth from 'utils/hooks/useAuth'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 import { HiOutlineUser, HiOutlineLogout } from 'react-icons/hi'
+import { useSelector } from 'react-redux'
+
 
 const dropdownItemList = []
 
@@ -13,14 +15,15 @@ export const UserDropdown = ({ className }) => {
     // bind this
     // const userInfo = useSelector((state) => state.auth.user)
 
-    const { signOut } = useAuth()
+    const { signOut } = useAuth();
+    const { user } = useSelector((state) => state.auth);
 
     const UserAvatar = (
         <div className={classNames(className, 'flex items-center gap-2')}>
             <Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
             <div className="hidden md:block">
-                <div className="text-xs capitalize">admin</div>
-                <div className="font-bold">User01</div>
+                <div className="text-xs capitalize">{user?.authority[0]}</div>
+                <div className="font-bold">{user?.userName}</div>
             </div>
         </div>
     )
