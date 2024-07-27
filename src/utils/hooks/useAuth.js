@@ -20,16 +20,15 @@ function useAuth() {
         try {
             const resp = await apiSignIn(values)
             if (resp.data) {
-                const { token } = resp.data
+                const { token } = resp?.data?.user;
                 dispatch(onSignInSuccess(token))
                 if (resp.data.user) {
                     dispatch(
-                        setUser(
-                            resp.data.user || {
+                        setUser({
                                 avatar: '',
-                                userName: 'Anonymous',
-                                authority: ['USER'],
-                                email: '',
+                                userName: resp.data.user?.firstName,
+                                authority: resp.data.user?.role === 1 ? ['Admin'] : ['USER'],
+                                email: resp.data.user?.email,
                             }
                         )
                     )
