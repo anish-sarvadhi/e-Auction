@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import socket from "socket/socket";
+import { useSelector } from "react-redux";
 
 const ProductDetails = ({
+  id,
   name,
   description,
   bidStartingPrice,
@@ -10,15 +12,17 @@ const ProductDetails = ({
   bidEndTime,
   image,
 }) => {
-  const [text, setText] = useState("");
+  const { user } = useSelector((state) => state.auth);
+
+  const [amount, setAmount] = useState();
   const [bidResponse, setBidResponse] = useState("");
 
   const handlePlaceBid = () => {
-    socket.emit("placeBid", { text });
+    socket.emit("placeBid", { product_id: id, amount, user_id: 1 });
   };
 
-  const handleTextChange = (e) => {
-    setText(e.target.value);
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
   };
 
   socket.on("newBid", (data) => {
@@ -37,8 +41,8 @@ const ProductDetails = ({
           <p>Bid Start Time: {bidStartTime}</p>
           <p>Bid End Time: {bidEndTime}</p>
           <input
-            onChange={handleTextChange}
-            value={text}
+            onChange={handleAmountChange}
+            value={amount}
             className="ring-0 outline-none block w-full p-4 text-base bg-transparent text-gray-900 dark:text-gray-100"
             placeholder="Enter bid amount"
           />
