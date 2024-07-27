@@ -1,0 +1,28 @@
+.product-details {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.product-image {
+  /* width: 100%; */
+  object-fit: contain;
+  height: auto;
+  border-radius: 8px;
+}
+.product-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.product-description {
+  font-size: 16px;
+  color: #666;
+  margin-top: 5px;
+}
+.bid-info {
+  font-size: 14px;
+  color: #333;
+  margin-top: 10px;
+}
