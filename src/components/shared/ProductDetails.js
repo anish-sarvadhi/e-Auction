@@ -18,7 +18,7 @@ const ProductDetails = ({
   const [bidResponse, setBidResponse] = useState("");
 
   const handlePlaceBid = () => {
-    socket.emit("placeBid", { product_id: id, amount, user_id: 1 });
+    socket.emit("placeBid", { productId: id, bidAmount: amount, userId: user?.userId });
   };
 
   const handleAmountChange = (e) => {

@@ -25,6 +25,7 @@ function useAuth() {
                 if (resp.data.user) {
                     dispatch(
                         setUser({
+                                userId: resp.data.user?.id,
                                 avatar: '',
                                 userName: resp.data.user?.firstName,
                                 authority: resp.data.user?.role === 1 ? ['Admin'] : ['USER'],
@@ -92,7 +93,7 @@ function useAuth() {
     }
 
     const signOut = async () => {
-        await apiSignOut()
+        // await apiSignOut()
         handleSignOut()
     }
 

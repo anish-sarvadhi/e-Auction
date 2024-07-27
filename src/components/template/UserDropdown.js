@@ -17,7 +17,6 @@ export const UserDropdown = ({ className }) => {
 
     const { signOut } = useAuth();
     const { user } = useSelector((state) => state.auth);
-
     const UserAvatar = (
         <div className={classNames(className, 'flex items-center gap-2')}>
             <Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
